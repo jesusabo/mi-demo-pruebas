@@ -1,0 +1,516 @@
+openapi: 3.0.1
+info:
+  description: Permite obtener las configuraciones generales no funcionales (Como Opciones de Menú, y micro apps) para WISE.
+  title: API UX Wise Configurations Manager V1
+  version: 1.0.0
+x-bcp-api-type: UX
+x-bcp-api-id: wise-configuration-manager
+servers:
+  - url: channel/wise/v1
+paths:
+  /configurations-manager/configs-menu-home/search:
+    post:
+      tags:
+        - MenuHome
+      summary: "Permite obtener la configuración del menú principal de WISE."
+      description: |
+        ### Acerca de la funcionalidad expuesta
+        La funcionalidad permite obtener la configuración del menú principal de WISE.
+
+        ### URI de acceso a la API
+        | Método            | URI                                                              |
+        |-------------------|------------------------------------------------------------------|
+        | POST              | /channel/wise/v1/configuration-manager/config-menu-home/find    |
+
+        ### Precondiciones para el consumo de esta versión de la API
+        Ninguna.
+
+        ### Headers Requeridos
+        | Header    | Ejemplo |
+        |-----------|---------|
+        |Request-ID|550e8400-e29b-41d4-a716-446655440000|
+        |request-date|2017-06-01T17:15:20.509-0400|
+        |Content-Type|application/json|
+        |app-code|WH|
+
+        ### Query Parameters válidos en esta versión de la API
+        Ninguna.
+
+        ### Usos válidos de Query Parameters
+        No aplica.
+
+        ### Data de Prueba
+        Ninguna.
+
+        ### Variantes válidas del Payload (Cuerpo del mensaje)
+        Ninguna.
+
+        ### Lista de Valores usadas en esta versión de la API
+        Ninguna.
+
+        ### Códigos de error usados en esta versión de la API
+        | Código |  HTTP Status | Descripción |
+        |--------|-------------|-------------|
+        | TL0003 | 400 | Los datos proporcionados no son v&aacute;lidos
+        | TL9999 | 401 | No est&aacute; autorizado para consumir el API.
+        | TL0003 | 403 | No se tiene permisos para consumir el API.
+        | TL0003 | 500 | curri&oacute; un error inesperado. Por favor contactarse con Soporte T&eacute;cnico.
+        | TL0003 | 503 | El servicio no se encuentra disponible. Por favor reintente más tarde.
+      operationId: searchConfigMenuHome
+      x-atlas-header:
+        $ref: '#/components/schemas/ConfigurationManagerHeaders'
+      parameters:
+        - $ref: '#/components/parameters/Authorization'
+        - $ref: '#/components/parameters/Request-ID'
+        - $ref: '#/components/parameters/request-date'
+        - $ref: '#/components/parameters/app-code'
+        - $ref: '#/components/parameters/caller-name'
+        - $ref: '#/components/parameters/x-auth-token'
+      requestBody:
+        content:
+          application/stream+json;charset=UTF-8:
+            schema:
+              $ref: '#/components/schemas/FindMenuHomeRequest'
+          application/json;charset=UTF-8:
+            schema:
+              $ref: '#/components/schemas/FindMenuHomeRequest'
+        description: Entrada del Servicio.
+        required: false
+      responses:
+        200:
+          description: Se obtuvo una respuesta correcta.
+          content:
+            application/stream+json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/FindMenuHomeResponse'
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/FindMenuHomeResponse'
+        400:
+          description: Los datos proporcionados son incorrectos.
+          content:
+            application/stream+json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/ApiException'
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/ApiException'
+        401:
+          description: No esta autorizado para ejecutar esta operacion.
+          content:
+            application/stream+json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/ApiException'
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/ApiException'
+        403:
+          description: No tiene los permisos necesarios para ejecutar esta operacion.
+          content:
+            application/stream+json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/ApiException'
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/ApiException'
+        500:
+          description: Ocurrio un error en el servicio externo.
+          content:
+            application/stream+json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/ApiException'
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/ApiException'
+        503:
+          description: El servicio no se encuentra disponible. Por favor reintente más tarde.
+          content:
+            application/stream+json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/ApiException'
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/ApiException'
+  /configurations-manager/configs-micro-app:
+    get:
+      tags:
+        - MicroApp
+      summary: "Permite obtener la configuración de las micro-apps que se deberán cargar en la aplicación."
+      description: |
+        ### Acerca de la funcionalidad expuesta
+        La funcionalidad permite obtener la configuración de las micro-apps que se deberán cargar en la aplicación
+
+        ### URI de acceso a la API
+        | Método            | URI                                                              |
+        |-------------------|------------------------------------------------------------------|
+        | POST              | /channel/wise/v1/configuration-manager/config-micro-app/find   |
+
+        ### Precondiciones para el consumo de esta versión de la API
+        Ninguna.
+
+        ### Headers Requeridos
+        | Header    | Ejemplo |
+        |-----------|---------|
+        |Request-ID|550e8400-e29b-41d4-a716-446655440000|
+        |request-date|2017-06-01T17:15:20.509-0400|
+        |Content-Type|application/json|
+        |app-code|WH|
+
+        ### Query Parameters válidos en esta versión de la API
+        Ninguna.
+
+        ### Usos válidos de Query Parameters
+        No aplica.
+
+        ### Data de Prueba
+        Ninguna.
+
+        ### Variantes válidas del Payload (Cuerpo del mensaje)
+        Ninguna.
+
+        ### Lista de Valores usadas en esta versión de la API
+        Ninguna.
+
+        ### Códigos de error usados en esta versión de la API
+        | Código |  HTTP Status | Descripción |
+        |--------|-------------|-------------|
+        | TL0003 | 400 | Los datos proporcionados no son v&aacute;lidos
+        | TL9999 | 401 | No est&aacute; autorizado para consumir el API.
+        | TL0003 | 403 | No se tiene permisos para consumir el API.
+        | TL0003 | 500 | curri&oacute; un error inesperado. Por favor contactarse con Soporte T&eacute;cnico.
+        | TL0003 | 503 | El servicio no se encuentra disponible. Por favor reintente más tarde.
+      operationId: findConfigMicroApp
+      x-atlas-header:
+        $ref: '#/components/schemas/ConfigurationManagerHeaders'
+      parameters:
+        - $ref: '#/components/parameters/Authorization'
+        - $ref: '#/components/parameters/Request-ID'
+        - $ref: '#/components/parameters/request-date'
+        - $ref: '#/components/parameters/app-code'
+        - $ref: '#/components/parameters/caller-name'
+        - $ref: '#/components/parameters/x-auth-token'
+        - name: version
+          in: query
+          description: Código de la versión
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: MICRO_APP_V1
+        - name: applyMatchCodeRole
+          in: query
+          description: flag para indicar que aplique el match de los roles del usuario.
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: true
+
+      responses:
+        200:
+          description: Se obtuvo una respuesta correcta.
+          content:
+            application/stream+json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/FindConfigMicroAppResponse'
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/FindConfigMicroAppResponse'
+        400:
+          description: Los datos proporcionados son incorrectos.
+          content:
+            application/stream+json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/ApiException'
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/ApiException'
+        401:
+          description: No esta autorizado para ejecutar esta operacion.
+          content:
+            application/stream+json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/ApiException'
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/ApiException'
+        403:
+          description: No tiene los permisos necesarios para ejecutar esta operacion.
+          content:
+            application/stream+json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/ApiException'
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/ApiException'
+        500:
+          description: Ocurrio un error en el servicio externo.
+          content:
+            application/stream+json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/ApiException'
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/ApiException'
+        503:
+          description: El servicio no se encuentra disponible. Por favor reintente más tarde.
+          content:
+            application/stream+json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/ApiException'
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/ApiException'
+components:
+  schemas:
+    ConfigurationManagerHeaders:
+      type: object
+    ApiException:
+      type: object
+      title: ApiException
+      description: Datos del error de sistema.
+      properties:
+        code:
+          type: string
+          example: SM0007
+          description: Codigo de error de Sistema
+        description:
+          type: string
+          example: Error al llamar al servicio
+          description: Descripcion del error de Sistema
+        errorType:
+          type: string
+          example: TECHNICAL
+          description: Tipo de Error de Sistema
+        properties:
+          type: object
+          description: Lista de propiedades especiales.
+    ContextDataMenuHome:
+      type: object
+      title: ContextDataMenuHome
+      properties:
+        code:
+          type: string
+          example: "SEARCH_ORGANIZATION"
+          description: Código General para identificar al contexto de data.
+        uuid:
+          type: string
+          example: "550e8400-e29b-41d4-a716-446655440000"
+          description: Código UUID para identificar al contexto de data.
+    FindMenuHomeRequest:
+      type: object
+      title: FindMenuHomeRequest
+      properties:
+        version:
+          type: string
+          example: "MENU_FULL_V1"
+          description: Código de la versión
+        contextData:
+          type: array
+          description: Lista de Configuraciones de context de data (Opcional).
+          items:
+            $ref: '#/components/schemas/ContextDataMenuHome'
+    ItemMenuResponse:
+      type: object
+      title: ItemMenuResponse
+      properties:
+        defaultPath:
+          type: string
+          example: "/sign-v2"
+          description: path por defecto de la microapp relacionada al ítem del Menú.
+        eventNameToNavigate:
+          type: string
+          example: "front-wise-user-management-signers-v2"
+          description: Campo necesario por FEM para hacer uso de la redirección (tópico usado por FEM).
+        iconDefault:
+          type: string
+          example: "external-link-r"
+          description: Icono por defecto.
+        iconActive:
+          type: string
+          example: "external-link-r"
+          description: Icono al seleccionar item.
+        description:
+          type: string
+          example: "configuración de firmantes"
+          description: Descripción a mostrar del item del Menú.
+        pathCode:
+          type: string
+          example: "MENU_FULL_V1"
+          description: Código que ubica al ítem del Menú en todo el arbol. como path
+        code:
+          type: string
+          example: "OLD_WISE"
+          description: Código identificador del ítem del Menú.
+        isExternal:
+          type: boolean
+          example: "true"
+          description: Flag para determinar si el Item redireccionará a una ruta externa al seleccionarlo.
+        externalPath:
+          type: string
+          example: "https://wwww.wise-bcpcert.com"
+          description: URL extarna a la que se redireccionará en otra pestaña.
+        isSeparator:
+          type: boolean
+          example: "true"
+          description: Flag que indica si un item será del tipo separador.
+        separatorText:
+          type: string
+          example: "WISE"
+          description: Valor del texto que podría o no tener el item , si feura separador,   en el Menú.
+        codePutDataCodeOperation:
+          type: string
+          example: "dataoperation-gu"
+          description: Código que identificará al registro de data que se injecte en el sesion storage front para ser usado por la microapp relacionada.
+        valuePutDataCodeOperation:
+          type: object
+          example: null
+          description: Data que se injectaría en el storage del front, de ser requerida por la microapp relacionada al ítem.
+        codeOperation:
+          type: string
+          example: " TBLANK_CONFIG_USER_SIGNS_V2"
+          description: Código que pudea identificar a la funcionalidad detrás del ítem , si se desea
+        matchCodeOperation:
+          type: string
+          example: "(TBLANK_CONFIG_USER_SIGNS_V2|TBLANK_CONFIG_USER_V2|TBLANK_CONFIG_PROFILE_V2)$"
+          description: Atributo  regex que indica que para mostrar la opción del Menú se deberá hacer match con el codeOperation que exista en el session storage actual.
+        matchGetDataCodeOperation:
+          type: string
+          example: "(dataoperation|dataoperation-gu)$"
+          description: Atributo regex que indica que para mostrar la opción del Menú se deberá hacer match con algún registro de data que exista en el session storage actual y se identifique con este código.
+        children:
+          type: array
+          description: Items hijos del Menú.
+          items:
+            $ref: '#/components/schemas/ItemMenuResponse'
+    FindMenuHomeResponse:
+      type: object
+      title: FindMenuHomeResponse
+      properties:
+        menuVersion:
+          type: string
+          example: "MENU_FULL_V1"
+          description: Código de la versión
+        appDescription:
+          type: string
+          example: "Empresas - Mantemiento de Servicios y usaurios"
+          description: Descripción para el encabezado de la aplicación.
+        menuMain:
+          type: array
+          description: Items del Menú principal.
+          items:
+            $ref: '#/components/schemas/ItemMenuResponse'
+
+    ItemConfigMicroAppRouteResponse:
+      type: object
+      title: ItemConfigMicroAppRouteResponse
+      properties:
+        path:
+          type: string
+          example: "sign-v2"
+          description: Atributo de "route" que identifica a un path de la microapp.
+        defaultRoute:
+          type: boolean
+          example: "true"
+          description: flag que indica si el path del "route" actual es el path por defecto
+        matchCodeRole:
+          type: string
+          example: "(UserSigns.View|UserSigns)$"
+          description: Atributo para validar que codeRole pertenezca a un rol enviado desde el front.
+        children:
+          type: array
+          description: Items de la configuración de las micro apps.
+          items:
+            $ref: '#/components/schemas/ItemConfigMicroAppRouteResponse'
+    ItemConfigMicroAppResponse:
+      type: object
+      title: ItemConfigMicroAppResponse
+      properties:
+        resourceUrl:
+          type: string
+          example: "https://staceu2wisebackd01.blob.core.windows.net/$web/front-wise-user-management-signers-v2/0.0.0/mfe-front-wise-user-management-signers-v2.vendor.js"
+          description: es la URL a la que se accederá desde la alicación (shell) para cargar la micro app.
+        rootRoute:
+          type: boolean
+          example: "flag"
+          description: Flag requerido para el ruteo de FEM
+        selector:
+          type: string
+          example: "mfe-front-wise-user-management-signers-v2"
+          description: es el código que identificará a la microapp como recurso
+        route:
+          $ref: '#/components/schemas/ItemConfigMicroAppRouteResponse'
+    FindConfigMicroAppResponse:
+      type: object
+      title: FindConfigMicroAppResponse
+      properties:
+        menuVersion:
+          type: string
+          example: "MENU_FULL_V1"
+          description: Código de la versión
+        microFrontendsMetadata:
+          type: array
+          description: Items de la configuración de las micro apps.
+          items:
+            $ref: '#/components/schemas/ItemConfigMicroAppResponse'
+  parameters:
+    Authorization:
+      name: Authorization
+      in: header
+      description: Token de Authorización
+      required: false
+      schema:
+        type: string
+        example: Bearer 363536363jjxnj63633611
+    Request-ID:
+      name: Request-ID
+      in: header
+      description: Este campo es un valor estandar ya existente y sera usado como identificador.
+      required: true
+      schema:
+        type: string
+        maxLength: 36
+        pattern: ^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[34][0-9a-fA-F]{3}-[89ab][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$
+        example: 550e8400-e29b-41d4-a716-446655440000
+    request-date:
+      name: request-date
+      in: header
+      description: Fecha de la petición
+      required: true
+      schema:
+        type: string
+        maxLength: 29
+        pattern: ^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}[+-]\d{4}([a-z]|[A-Z]|\d)?$
+        example: 2020-10-09T14:02:03.987-0700
+    app-code:
+      name: app-code
+      in: header
+      description: Codigo de la aplicacion que invoca el servicio. Se debe usar el codigo de 2 caracteres que tienen asignada las aplicaciones, puede ser el canal.
+      required: true
+      schema:
+        type: string
+        pattern: ^[0-9A-Z]*$
+        maxLength: 2
+        minLength: 2
+        example: P0
+    caller-name:
+      name: caller-name
+      in: header
+      description: Nombre de la API que realiza la invocacion al servicio.
+      required: true
+      schema:
+        type: string
+        pattern: ^[0-9a-zA-Z.-]*$
+        maxLength: 100
+        minLength: 5
+        example: atlas-cross-services-loans-deposits-loan-loans-v2
+    x-auth-token:
+      name: x-auth-token
+      in: header
+      description: Token de Azure Active Directory
+      required: true
+      schema:
+        type: string
+        pattern: ^([a-zA-Z0-9_=]+)\.([a-zA-Z0-9_=]+)\.([a-zA-Z0-9_\-\+\/=]*)
