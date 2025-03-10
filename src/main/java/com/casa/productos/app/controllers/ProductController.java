@@ -3,6 +3,7 @@ package com.casa.productos.app.controllers;
 import com.azure.core.annotation.Post;
 import com.casa.productos.app.models.Product;
 import com.casa.productos.app.services.ProductService;
+import com.casa.productos.app.services.impl.KafkaProducerService;
 import lombok.Generated;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -19,6 +20,7 @@ import reactor.core.publisher.Mono;
 public class ProductController {
 
     private final ProductService productService;
+    private final KafkaProducerService kafkaProducerService;
 
     @GetMapping("/{id}")
     public Mono<ResponseEntity<Product>> buscarPorId(@PathVariable String id){
@@ -58,4 +60,12 @@ public class ProductController {
         log.info("eliminarPorCode: {}", code);
         return productService.deleteByCode(code).map(prod-> ResponseEntity.status(HttpStatus.OK).body(prod));
     }
+
+    @GetMapping("/kafka")
+    public Mono<String> enviarKafka(@RequestParam String message){
+        log.info("enviarKafka");
+        kafkaProducerService.sendMessage(message);
+        return Mono.just("Mensaje enviado a kafka");
+    }
+
 }
