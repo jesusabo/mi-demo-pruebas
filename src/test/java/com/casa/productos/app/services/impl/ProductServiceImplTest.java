@@ -106,7 +106,7 @@ class ProductServiceImplTest {
         StepVerifier.create(response)
                 .expectErrorMatches(throwable ->
                         throwable instanceof ResourceIsAlreadyException &&
-                        throwable.getMessage().equals("Error Producto ya se encuentra registrado"))
+                        throwable.getMessage().equals("Error Recurso existente"))
                 .verify();
 
         verify(productRepository, never()).save(any(Product.class));
