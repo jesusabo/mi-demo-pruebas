@@ -1,6 +1,5 @@
 package com.casa.productos.app.controllers;
 
-import com.azure.core.annotation.Post;
 import com.casa.productos.app.models.Product;
 import com.casa.productos.app.services.ProductService;
 import lombok.Generated;

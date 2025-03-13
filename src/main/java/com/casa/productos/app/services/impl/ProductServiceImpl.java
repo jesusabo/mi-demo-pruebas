@@ -31,11 +31,11 @@ public class ProductServiceImpl implements ProductService {
                 .flatMap(res -> Mono.<Product>error(new ResourceIsAlreadyException("Recurso existente")))
                 .onErrorResume(error -> {
                     if(error instanceof ResourceNotFoundException){
-                       return storeManagerRepository.getProduct("22")
+                       return storeManagerRepository.getProduct("4")
                                 .flatMap(res -> {
                                     if(res.getBody()!=null){
                                         product.setName(res.getBody().getDescription());
-                                        return productRepository.save(product);
+                                        return Mono.fromCallable( () -> productRepository.save(product));
                                     }
                                    return Mono.error(new RuntimeException("Error sin Body"));
                                 })
@@ -62,40 +62,46 @@ public class ProductServiceImpl implements ProductService {
                     prod.setName(product.getName());
                     prod.setCategory(product.getCategory());
                     prod.setPrice(product.getPrice());
-                    return productRepository.save(prod);
+                    return Mono.fromCallable(() -> productRepository.save(prod));
                 });
 
     }
 
     @Override
     public Flux<Product> findAll() {
-        return productRepository.findAll();
+        return Flux.fromIterable(productRepository.findAll());
     }
 
     @Override
     public Mono<Product> findById(String id) {
-        return productRepository.findById(id)
-                .switchIfEmpty(Mono.error(new ResourceNotFoundException("Producto no existe")));
+        return Mono.fromCallable(() -> productRepository.findById(Long.parseLong(id))
+                .orElseThrow(() -> new ResourceNotFoundException("Producto no existe")));
     }
 
     @Override
     public Mono<Product> findByCode(int code) {
-        return productRepository.findByCode(code)
-                .switchIfEmpty(Mono.error(new ResourceNotFoundException("Producto no existe")));
+        return Mono.fromCallable(() -> productRepository.findByCode(code)
+                .orElseThrow(() -> new ResourceNotFoundException("Producto no existe")));
     }
 
     @Override
     public Mono<String> deleteById(String id) {
-        return this.findById(id)
-                .flatMap(prod -> productRepository.deleteById(prod.getId()))
-                .then(Mono.just("Se elimino correctamente por Id"));
+        return Mono.fromRunnable(() -> {
+            Product product = productRepository.findById(Long.parseLong(id))
+                    .orElseThrow(() -> new ResourceNotFoundException("Producto no existe"));
+
+            productRepository.deleteById(Long.parseLong(id));
+        }).thenReturn("Se eliminó correctamente por Id");
     }
 
     @Override
     public Mono<String> deleteByCode(int code) {
-        return this.findByCode(code)
-                .flatMap(productRepository::deleteByCode)
-                .then(Mono.just("Se elimino correctamente por Code"));
+        return Mono.fromRunnable(() -> {
+            Product product = productRepository.findByCode(code)
+                    .orElseThrow(() -> new ResourceNotFoundException("Producto no existe"));
+
+            productRepository.deleteByCode(product.getCode());
+        }).thenReturn("Se eliminó correctamente por Code");
 
     }
 

@@ -23,6 +23,7 @@ import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
 import java.math.BigDecimal;
+import java.util.Optional;
 
 import static org.mockito.Mockito.*;
 
@@ -50,7 +51,7 @@ class ProductServiceImplTest {
     void setUp(){
         bd = BigDecimal.valueOf(1001);
         product = Product.builder()
-                        .id("abcdefghi")
+                        .id(123456L)
                         .price(bd)
                         .code(999999)
                         .name("bicicleta")
@@ -68,9 +69,9 @@ class ProductServiceImplTest {
 
     @Test
     void Prueba1(){
-        when(productRepository.findByCode(anyInt())).thenReturn(Mono.empty());
+        when(productRepository.findByCode(anyInt())).thenReturn(Optional.empty());
 
-        when(productRepository.save(any(Product.class))).thenReturn(Mono.just(product));
+        when(productRepository.save(any(Product.class))).thenReturn(product);
 
         when(storeManagerRepository.getProduct(anyString())).thenReturn(Mono.just(ResponseEntity.status(HttpStatus.OK).body(store)));
 
@@ -93,7 +94,7 @@ class ProductServiceImplTest {
 
     @Test
     void Prueba2(){
-        when(productRepository.findByCode(999999)).thenReturn(Mono.just(product));
+        when(productRepository.findByCode(999999)).thenReturn(Optional.of(product));
 
         Product productToSave = Product.builder()
                 .price(bd)

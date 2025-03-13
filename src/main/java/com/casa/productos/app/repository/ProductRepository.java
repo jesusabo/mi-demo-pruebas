@@ -1,12 +1,13 @@
 package com.casa.productos.app.repository;
 
 import com.casa.productos.app.models.Product;
-import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
-import reactor.core.publisher.Mono;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface ProductRepository extends ReactiveMongoRepository<Product,String> {
+import java.util.Optional;
 
-    Mono<Product> findByCode(int code);
+public interface ProductRepository extends JpaRepository<Product,Long> {
 
-    Mono<Void> deleteByCode(Product product);
+    Optional<Product> findByCode(int code);
+
+    Void deleteByCode(int code);
 }

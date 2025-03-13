@@ -28,7 +28,7 @@ public class StoreManagerRepositoryImpl implements StoreManagerRepository {
                         .build(id));
         return request.retrieve()
                 .toEntity(Store.class)
-                .timeout(Duration.ofMillis(100L))
+                .timeout(Duration.ofMillis(10000L))
                 .onErrorResume(error -> {
                     if(error instanceof TimeoutException){
                         System.out.println("Error TimeOut");
